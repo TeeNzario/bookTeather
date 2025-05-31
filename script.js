@@ -107,6 +107,13 @@ function showReceipt(){
 
     let newList = document.createElement("li");
     newList.innerText = `ชื่อหนัง : ${movieName} จำนวน ${selected} ที่นั่ง รวม ${total} บาทนะจ๊ะน้องชายพี่`;
+    
+    let deleteButton = createDeleteButton(newList);
+    newList.appendChild(deleteButton);
+
+
+    
+
     list.appendChild(newList);
 
     Swal.fire({
@@ -118,3 +125,16 @@ function showReceipt(){
 }
 
 
+function createDeleteButton(list){
+    let deleteButton = document.createElement("button");
+    deleteButton.innerText = "ลบ";
+
+    deleteButton.addEventListener("click", () => {
+        removeList(list);
+    })
+    return deleteButton;
+}
+
+function removeList(item){
+    item.remove();
+}

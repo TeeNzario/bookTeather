@@ -61,3 +61,7 @@ li{
 .content > h1 {
     margin-top: 2rem;
 }
+
+li > button {
+    margin-left: 1rem;
+}
