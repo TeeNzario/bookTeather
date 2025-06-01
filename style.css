@@ -9,59 +9,48 @@ body{
 }
 
 .container{
-    height: 100vh;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    height: 100vh;
 }
 
 .content{
     display: flex;
     flex-direction: column;
-    width: 30vw;
-    align-items: center;
+}
+
+.seat{
+    height: 5rem;
+    width: 5rem;
+    background-color: blueviolet;
 }
 
 .row{
     margin-top: 6rem;
     display: grid;
-    grid-template: repeat(5, 1fr) / repeat(8, 1fr);
+    grid-template: 1fr 1fr/ repeat(4, 1fr); 
     gap: 10px;
 }
 
-
-.seat{
-    background-color: blueviolet;
-    height: 3rem;
-    width: 3rem;
-}
-
 button{
-    margin-top: 3rem;
-    padding: 0.5rem 2rem;
+    margin-top: 2rem;
+    padding: 1rem 2rem;
 }
 
-.selected{
-    background-color: rgb(255, 234, 40);
+ul{
+    margin-top: 2rem;
+}
+
+.selected {
+    background-color: yellow;
 }
 
 .occupied{
     background-color: gray;
 }
 
-ul{
-    margin-top: 1rem;
-}
-
-li{
-    margin-top: 0.5rem;
-}
-
-.content > h1 {
+h2{
     margin-top: 2rem;
-}
-
-li > button {
-    margin-left: 1rem;
 }
