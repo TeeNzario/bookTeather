@@ -5,15 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="style.css">
-    <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.22.0/dist/sweetalert2.min.css" rel="stylesheet">
 </head>
 <body>
     <div class="container">
         <div class="content">
             <select name="" id="movies">
-                <option value="0">เลือกหนัง</option>
-                <option value="150">A Minecraft Movie</option>
-                <option value="130">Demon Slayer Kimetsu no Yaiba Infinity Castle</option>
+                <option value="0">Choose movie</option>
+                <option value="150">A Minecraft movie</option>
+                <option value="130">Demon Slayer: Kimetsu No Yaiba</option>
             </select>
             <div class="row">
                 <div class="seat"></div>
@@ -24,48 +23,14 @@
                 <div class="seat"></div>
                 <div class="seat"></div>
                 <div class="seat"></div>
-                <div class="seat"></div>
-                <div class="seat"></div>
-                <div class="seat"></div>
-                <div class="seat"></div>
-                <div class="seat"></div>
-                <div class="seat"></div>
-                <div class="seat"></div>
-                <div class="seat"></div>
-                <div class="seat"></div>
-                <div class="seat"></div>
-                <div class="seat"></div>
-                <div class="seat"></div>
-                <div class="seat"></div>
-                <div class="seat"></div>
-                <div class="seat"></div>
-                <div class="seat"></div>
-                <div class="seat"></div>
-                <div class="seat"></div>
-                <div class="seat"></div>
-                <div class="seat"></div>
-                <div class="seat"></div>
-                <div class="seat"></div>
-                <div class="seat"></div>
-                <div class="seat"></div>
-                <div class="seat"></div>
-                <div class="seat"></div>
-                <div class="seat"></div>
-                <div class="seat occupied"></div>
-                <div class="seat"></div>
-                <div class="seat"></div>
-                <div class="seat"></div>
-                <div class="seat"></div>
             </div>
-            <h1>คุณเลือกทั้งหมด <span id="seats-selected">0</span> ที่นั่ง รวม <span id="seats-price">0</span> บาท</h1>
-            <button id="confirm-button">Booked Seat</button>
-            <div class="show-list">
-                <ul>
-                </ul>
-            </div>
+            <h2>จำนวนที่นั่ง <span id="show-seats">0</span> รวม <span id="show-price">0</span> บาท</h2>
+            <button>Book movie</button>
+            <ul>
+            </ul>
+
         </div>
-    </div> 
+    </div>
     <script src="script.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.22.0/dist/sweetalert2.all.min.js"></script>
 </body>
 </html>

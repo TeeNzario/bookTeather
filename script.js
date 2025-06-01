@@ -1,140 +1,121 @@
+let selectMovie = document.getElementById("movies");
+
 let seats = document.querySelectorAll(".seat");
 
-let seatsSelected = document.getElementById("seats-selected"); //Show count of seats
-let seatsPrice = document.getElementById("seats-price"); //Show price
+let showSeats = document.getElementById("show-seats")
+let showPrice= document.getElementById("show-price")
 
-let movieSelect= document.getElementById("movies");
-
-let ticketPrice = +movieSelect.value
-
-
-let confirmButton = document.getElementById("confirm-button");
+let button = document.querySelector("button");
 
 let list = document.querySelector("ul");
 
-movieSelect.addEventListener('change', () => {
-    ticketPrice = +movieSelect.value
 
+selectMovie.addEventListener("change", () => {
 
     seats.forEach((seat) => {
         seat.classList.remove("selected");
     })
+
+    resetAmount();
+
+})
+
+
     
-    const seatsCount = selectedCount()
-    renderShow(seatsCount);
-
-})
-
 seats.forEach((seat) => {
-    seat.addEventListener('click', function(){
-        if (seat.classList.contains('occupied')){
-            return
-        };
 
-        if(ticketPrice === 0){
-            Swal.fire("Please select movie before!");
-            return
-        }
+    seat.addEventListener("click", () => {
 
-        seat.classList.toggle('selected');
-        totalPrice();
-        renderShow();
+        if (!canSelectSeat(seat)) return;
+
+        seat.classList.toggle("selected");
+        showSeatAndPrice();
+
     })
+
 })
 
+function canSelectSeat(seat){
 
-
-//count number of seats
-function selectedCount () {
-    const selectedSeats = document.querySelectorAll(".row .seat.selected");
-    const seatsCount = selectedSeats.length;
-
-    return seatsCount
-
+    return parseInt(selectMovie.value) !== 0 && !seat.classList.contains("occupied");
 }
 
 
-//total price
-function totalPrice(){
-    const ticketPrice = +movieSelect.value;
-    const seatsCount = selectedCount();
+function seatCount(){
 
-    const total = seatsCount * ticketPrice;
-    return total;
+    return document.querySelectorAll(".seat.selected").length;
 }
 
-function renderShow (seatsCount) {
-    const count = selectedCount();
-    const total = totalPrice();
 
-    seatsSelected.innerText = count;
-    seatsPrice.innerText = total;
+function showSeatAndPrice(){
+    let count = seatCount();
+    let price = priceTotal();
+
+    showSeats.innerText = count; 
+    showPrice.innerText = price;
 }
 
-confirmButton.addEventListener("click", bookMovie)
+function priceTotal(){
+    let priceMovie = +selectMovie.value;
+    let count= seatCount();
 
-function bookMovie(){
-    let selectedSeats = document.querySelectorAll(".seat.selected");
+    return priceMovie * count;
+}
 
-    if(selectedSeats.length === 0){
-        Swal.fire("Please select seat before click confirm button.");
+
+button.addEventListener("click", handleBooking);
+
+function handleBooking(){
+    if (seatCount() === 0){
         return
     }
 
-    showReceipt();
 
-    selectedSeats.forEach((seat) => {
-
-        let selectedSeat= seat.classList;
-        selectedSeat.remove("selected");
-        selectedSeat.add("occupied");
-
-    })
-   
-
-    seatsSelected.innerText = 0;
-    seatsPrice.innerText = 0;
-
+    renderList();
+    markSelectedSeatsAdOccupied();
+    resetAmount();
 }
 
-function showReceipt(){
-    const selected = selectedCount();
-    const total = totalPrice();
+function markSelectedSeatsAdOccupied(){
+    let selectSeat = document.querySelectorAll(".seat.selected");
+    selectSeat.forEach((seat) => {
+        seat.classList.remove("selected");
+        seat.classList.add("occupied");
+    })
+}
 
-    let movieSelectIndex = movieSelect.selectedIndex;
-    let movieOption = movieSelect.options[movieSelectIndex];
-    let movieName = movieOption.text;
+
+function renderList(){
+    let count = seatCount();
+    let price = priceTotal();
+
+    let movieName = selectMovie.options[selectMovie.selectedIndex].text;
 
     let newList = document.createElement("li");
-    newList.innerText = `ชื่อหนัง : ${movieName} จำนวน ${selected} ที่นั่ง รวม ${total} บาทนะจ๊ะน้องชายพี่`;
+    newList.innerText = `${movieName} จำนวนที่นั่ง ${count} รวม ${price} บาท`;
+
+    createDeleteButton(newList);
+    list.appendChild(newList);
+}
+
+function resetAmount(){
+    showPrice.innerText = "0";
+    showSeats.innerText = "0";
+}
+
+
+function createDeleteButton(newList){
+    let deleteButton = document.createElement("button");
+    deleteButton.innerText ="ลบ";
     
-    let deleteButton = createDeleteButton(newList);
     newList.appendChild(deleteButton);
 
-
-    
-
-    list.appendChild(newList);
-
-    Swal.fire({
-        title: `จองตั๋วหนัง เรื่อง ${movieName} จำนวน ${selected} ที่นั่ง สำเร็จแล้ว!`,
-        icon: "success",
-        draggable: true
-    });
-
-}
-
-
-function createDeleteButton(list){
-    let deleteButton = document.createElement("button");
-    deleteButton.innerText = "ลบ";
-
     deleteButton.addEventListener("click", () => {
-        removeList(list);
+        
+        deleteItem(newList);
     })
-    return deleteButton;
 }
 
-function removeList(item){
+function deleteItem(item){
     item.remove();
 }
